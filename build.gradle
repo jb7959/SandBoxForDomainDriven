@@ -1,0 +1,30 @@
+// properties
+group 'com.domaindriven'
+version '1.0-SNAPSHOT'
+
+
+buildscript{
+    repositories{
+        jcenter()  // why do I use it? http://stackoverflow.com/questions/25137263/what-is-included-in-jcenter-repository-in-gradle
+        maven { url 'http://repo.spring.io/snapshot' }
+        maven { url 'http://repo.spring.io/milestone' }
+    }
+    dependencies{
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.3.1.RELEASE') // including the Spring Boot Plugin (1/2)
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot' // including the Spring Boot Plugin (2/2)
+
+
+repositories {
+    jcenter()
+    maven { url 'http://repo.spring.io/snapshot'}
+    maven { url 'http://repo.spring.io/milestone'}
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-freemarker')      // FreeMarker for View Tech.
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')      // FreeMarker for View Tech.
+}

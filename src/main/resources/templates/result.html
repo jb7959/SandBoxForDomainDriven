@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Success to Add a Record</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'data: ' + ${record.date}" />
+<p th:text="'revenueOrExpense: ' + ${record.revenueOrExpense}" />
+<p th:text="'amount: ' + ${record.amount}" />
+<p th:text="'balance: ' + ${record.balance}" />
+<p th:text="'summary: ' + ${record.summary}" />
+<p th:text="'category: ' + ${record.category}" />
+<a href="/greeting">Submit another message</a>
+</body>
+</html>
