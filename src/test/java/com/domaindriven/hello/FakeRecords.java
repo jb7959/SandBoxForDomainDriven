@@ -4,6 +4,7 @@ package com.domaindriven.hello;
  * Created by tony on 2016. 1. 22..
  */
 public class FakeRecords {
+
     public Record getRecord(int i) {
         if(i == 1){
             return new Record("2015.08.29", true, "30,000", "30,000", "임춘봉 1년 커뮤니티 후원금", "후원금");

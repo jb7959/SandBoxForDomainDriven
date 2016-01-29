@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Application {
 
     private static FakeRecords fakeRecords = new FakeRecords();
+
     @Autowired
     private RecordRepository recordRepository;
 
