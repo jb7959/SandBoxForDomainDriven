@@ -1,8 +1,6 @@
-package com.domaindriven.hello;
+package kr.domaindriven.hello;
 
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 /**
  * Created by jerry on 2016-01-26.

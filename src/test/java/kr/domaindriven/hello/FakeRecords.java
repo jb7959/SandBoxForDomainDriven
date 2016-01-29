@@ -1,4 +1,4 @@
-package com.domaindriven.hello;
+package kr.domaindriven.hello;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
