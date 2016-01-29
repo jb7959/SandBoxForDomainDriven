@@ -6,9 +6,11 @@
         <th>잔액</th>
         <th>적요</th>
         <th>범주</th>
+        <th>  </th>
     </tr>
-    <#list list as record>
+<#list list as record>
     <tr>
+        <td><a href=./list/${record.id}>${record.id}</a></td>
         <td>${record.date}</td>
         <#if record.revenueOrExpense == "수입">
             <td>${record.amount}</td>
@@ -20,6 +22,8 @@
         <td>${record.balance}</td>
         <td>${record.summary}</td>
         <td>${record.category}</td>
+        <td><a href=/update/${record.id}>수정</a></td>
     </tr>
-    </#list>
+</#list>
+    <tr><td><a href="/dailybook/add">추가</a></td></tr>
 </table>
