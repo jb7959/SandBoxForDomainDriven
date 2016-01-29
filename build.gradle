@@ -29,4 +29,5 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')      // Thymeleaf for View Tech.
     compile('org.springframework.boot:spring-boot-starter-data-jpa')      // Data-Jpa for Data Persistence Tech.
     compile("com.h2database:h2")      // H2 for Data Persistance Tech.
+    compile("org.joda:joda-money:0.10.0")
 }

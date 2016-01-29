@@ -1,12 +1,16 @@
 package com.domaindriven.hello;
 
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +32,11 @@ public class DailyBookPageController {
     }
 
     @RequestMapping(value="dailybook/add", method=RequestMethod.POST)
-    public String recordAdded(@ModelAttribute Record record, Model model) {
+    public String recordAdded(@ModelAttribute Record record, BindingResult result, Model model) {
+
+        System.out.println(record);
+        System.out.println("BEFORE :" + record.getAmount());
+        System.out.println("BEFORE :" + record.getRevenueOrExpense());
 
         if(record.getDate() == null){
             record.setDate(LocalDateTime.now());
@@ -37,9 +45,18 @@ public class DailyBookPageController {
         // TODO 날짜를 입력 받아 처리하는 방법 구현
         // TODO 시간까지 입력 받아 처리하는 방법 구현
 
+        if(record.getAmount() == null){
+            record.setAmount(Money.of(CurrencyUnit.of("KRW"), new BigDecimal(30000)));
+        }
+        System.out.println("AFTER " + record.getAmount());
+
         recordRepository.save(record);
         model.addAttribute("record", record);
-        return "result";
+
+        if(result.hasErrors())
+            return "add";
+        else
+            return "result";
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)

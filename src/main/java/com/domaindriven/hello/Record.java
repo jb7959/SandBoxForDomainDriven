@@ -1,5 +1,7 @@
 package com.domaindriven.hello;
 
+import org.joda.money.Money;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,8 +24,8 @@ public class Record {
 
     private LocalDateTime date;
     private String revenueOrExpense;
-    private String amount;
-    private String balance;
+    private Money amount;
+    private String balance; // FIXME ... like amount
     private String summary;
     private String category;
 
@@ -33,7 +35,7 @@ public class Record {
 
     public void setRevenueOrExpense(String revenueOrExpense) { this.revenueOrExpense = revenueOrExpense; }
 
-    public void setAmount(String amount) {
+    public void setAmount(Money amount) {
         this.amount = amount;
     }
 
@@ -49,7 +51,7 @@ public class Record {
         this.category = category;
     }
 
-    public Record(LocalDateTime date, boolean isRevenue, String amount, String balance, String summary, String category) {
+    public Record(LocalDateTime date, boolean isRevenue, Money amount, String balance, String summary, String category) {
         this.date = date;
         if(isRevenue){
             revenueOrExpense = "수입";
@@ -74,7 +76,7 @@ public class Record {
         return date;
     }
 
-    public String getAmount() {
+    public Money getAmount() {
         return amount;
     }
 
