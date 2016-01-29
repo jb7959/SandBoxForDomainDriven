@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,13 @@ public class DailyBookPageController {
 
     @RequestMapping(value="dailybook/add", method=RequestMethod.POST)
     public String recordAdded(@ModelAttribute Record record, Model model) {
+
+        if(record.getDate() == null){
+            record.setDate(LocalDateTime.now());
+        }
+
+        // TODO 날짜를 입력 받아 처리하는 방법 구현
+        // TODO 시간까지 입력 받아 처리하는 방법 구현
 
         recordRepository.save(record);
         model.addAttribute("record", record);

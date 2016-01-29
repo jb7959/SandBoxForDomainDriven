@@ -1,12 +1,13 @@
 <table>
     <tr>
+        <th>no</th>
         <th>날짜</th>
         <th>수입</th>
         <th>지출</th>
         <th>잔액</th>
         <th>적요</th>
         <th>범주</th>
-        <th>  </th>
+        <th>명령</th>
     </tr>
 <#list list as record>
     <tr>

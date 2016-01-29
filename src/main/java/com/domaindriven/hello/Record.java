@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 
 /**
@@ -19,13 +20,14 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String date;
+    private LocalDateTime date;
     private String revenueOrExpense;
     private String amount;
     private String balance;
     private String summary;
     private String category;
-    public void setDate(String date) {
+
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -47,7 +49,7 @@ public class Record {
         this.category = category;
     }
 
-    public Record(String date, boolean isRevenue, String amount, String balance, String summary, String category) {
+    public Record(LocalDateTime date, boolean isRevenue, String amount, String balance, String summary, String category) {
         this.date = date;
         if(isRevenue){
             revenueOrExpense = "수입";
@@ -68,7 +70,7 @@ public class Record {
 
     public long getId() {return id;}
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
