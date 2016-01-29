@@ -22,12 +22,12 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private LocalDateTime date;
-    private String revenueOrExpense;
-    private Money amount;
-    private String balance; // FIXME ... like amount
+    private LocalDateTime date; // TODO #8
+    private String revenueOrExpense; // TODO #13
+    private Money amount; // TODO #14
+    private String balance; // TODO #15
     private String summary;
-    private String category;
+    private String category; // TODO #16
 
     public void setDate(LocalDateTime date) {
         this.date = date;
