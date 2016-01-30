@@ -1,7 +1,5 @@
 package kr.domaindriven.hello;
 
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

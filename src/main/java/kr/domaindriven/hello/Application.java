@@ -14,23 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class Application {
 
-    private static FakeRecords fakeRecords = new FakeRecords();
-
-    @Autowired
-    private RecordRepository recordRepository;
-
     public static void main(String... args){
         System.setProperty("spring.h2.console.enabled","true");
+        System.setProperty("spring.jpa.show-sql", "true");
+        System.setProperty("spring.jpa.hibernate.ddl-auto", "validate");
         SpringApplication.run(Application.class, args);
     }
 
     @RequestMapping("/")
     public String index(){
-        if(recordRepository.count() == 0){
-            for(int i = 1; i < 14; i++){
-                recordRepository.save(fakeRecords.getRecord(i));
-            }
-        }
         return "Hello, World!";
     }
 }
