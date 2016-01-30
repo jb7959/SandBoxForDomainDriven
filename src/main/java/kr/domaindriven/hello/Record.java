@@ -1,9 +1,6 @@
 package kr.domaindriven.hello;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
@@ -20,9 +17,11 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private LocalDateTime date; // TODO #8
-    private String revenueOrExpense; // TODO #13
-    private Won amount; // TODO #14
+    private LocalDateTime date;
+
+    @Enumerated(value = EnumType.STRING)
+    private RecordType revenueOrExpense;
+    private Won amount;
     private String balance; // TODO #15
     private String summary;
     private String category; // TODO #16
@@ -31,7 +30,7 @@ public class Record {
         this.date = date;
     }
 
-    public void setRevenueOrExpense(String revenueOrExpense) { this.revenueOrExpense = revenueOrExpense; }
+    public void setRevenueOrExpense(RecordType revenueOrExpense) { this.revenueOrExpense = revenueOrExpense; }
 
     public void setAmount(Won amount) {
         this.amount = amount;
@@ -52,10 +51,10 @@ public class Record {
     public Record(LocalDateTime date, boolean isRevenue, Won amount, String balance, String summary, String category) {
         this.date = date;
         if(isRevenue){
-            revenueOrExpense = "수입";
+            revenueOrExpense = RecordType.수입;
         }else {
 
-            revenueOrExpense = "지출";
+            revenueOrExpense = RecordType.지출;
         }
         this.amount = amount;
         this.balance = balance;
@@ -86,7 +85,7 @@ public class Record {
         return summary;
     }
 
-    public String getRevenueOrExpense() {
+    public RecordType getRevenueOrExpense() {
         return revenueOrExpense;
     }
 
