@@ -44,7 +44,7 @@ public class DailyBookPageController {
         // TODO 시간까지 입력 받아 처리하는 방법 구현
 
         if(record.getAmount() == null){
-            record.setAmount(Money.of(CurrencyUnit.of("KRW"), new BigDecimal(30000)));
+            record.setAmount(new Won(30000));
         }
         System.out.println("AFTER " + record.getAmount());
 
