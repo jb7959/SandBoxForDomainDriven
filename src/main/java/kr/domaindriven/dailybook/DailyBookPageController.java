@@ -71,6 +71,16 @@ public class DailyBookPageController {
         return APP_DIR + "list";
     }
 
+    @RequestMapping(value = "datatables", method = RequestMethod.GET)
+    public String datatables(Model model){
+        List<Record> recordList = new ArrayList<Record>();
+        for (Record record:recordRepository.findAll()) {
+            recordList.add(record);
+        }
+        model.addAttribute("list", recordList);
+        return APP_DIR + "datatables";
+    }
+
 
     @RequestMapping("list/{id}")
     public String list(@PathVariable Long id, Model model){

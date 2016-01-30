@@ -28,8 +28,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-freemarker')      // FreeMarker for View Tech.
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')      // Thymeleaf for View Tech.
     compile('org.springframework.boot:spring-boot-starter-data-jpa')      // Data-Jpa for Data Persistence Tech.
-    compile("com.h2database:h2")      // H2 for Data Persistance Tech.
-    compile("org.flywaydb:flyway-core")
+    compile('com.h2database:h2')
+    compile('org.flywaydb:flyway-core')
 
-    testCompile("junit:junit:4.11")
+    testCompile('junit:junit:4.11')
 }
