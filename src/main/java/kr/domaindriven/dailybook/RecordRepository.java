@@ -1,5 +1,6 @@
-package kr.domaindriven.hello;
+package kr.domaindriven.dailybook;
 
+import kr.domaindriven.dailybook.record.Record;
 import org.springframework.data.repository.CrudRepository;
 
 /**

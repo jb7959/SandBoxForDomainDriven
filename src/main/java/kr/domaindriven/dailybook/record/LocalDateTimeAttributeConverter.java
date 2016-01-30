@@ -1,4 +1,4 @@
-package kr.domaindriven.hello;
+package kr.domaindriven.dailybook.record;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

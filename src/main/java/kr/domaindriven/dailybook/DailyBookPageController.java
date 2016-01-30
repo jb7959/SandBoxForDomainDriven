@@ -1,12 +1,16 @@
-package kr.domaindriven.hello;
+package kr.domaindriven.dailybook;
 
+import kr.domaindriven.dailybook.record.Record;
+import kr.domaindriven.dailybook.record.Won;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +22,15 @@ import java.util.List;
 @Controller
 public class DailyBookPageController {
 
+    private final String APP_DIR = "dailybook/";
+
     @Autowired
     private RecordRepository recordRepository;
 
     @RequestMapping(value="dailybook/add", method= RequestMethod.GET)
     public String addRecord(Model model) {
         model.addAttribute("record", new Record());
-        return "add";
+        return APP_DIR + "add";
     }
 
     @RequestMapping(value="dailybook/add", method=RequestMethod.POST)
@@ -50,9 +56,9 @@ public class DailyBookPageController {
         model.addAttribute("record", record);
 
         if(result.hasErrors())
-            return "add";
+            return APP_DIR + "add";
         else
-            return "result";
+            return APP_DIR + "result";
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
@@ -62,7 +68,7 @@ public class DailyBookPageController {
             recordList.add(record);
         }
         model.addAttribute("list", recordList);
-        return "list";
+        return APP_DIR + "list";
     }
 
 
@@ -71,7 +77,6 @@ public class DailyBookPageController {
         List<Record> recordList = new ArrayList<Record>();
         recordList.add(recordRepository.findById(id));
         model.addAttribute("list", recordList);
-        return "list";
+        return APP_DIR + "list";
     }
 }
-

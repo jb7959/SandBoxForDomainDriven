@@ -1,4 +1,4 @@
-package kr.domaindriven.hello;
+package kr.domaindriven.dailybook.record;
 
 /**
  * Created by tony on 2016. 1. 30..

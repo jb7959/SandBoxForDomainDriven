@@ -1,4 +1,4 @@
-package kr.domaindriven.hello;
+package kr.domaindriven.dailybook.record;
 
 import java.math.BigDecimal;
 import java.util.Currency;
