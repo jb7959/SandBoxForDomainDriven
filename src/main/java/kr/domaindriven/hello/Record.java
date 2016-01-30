@@ -24,7 +24,9 @@ public class Record {
     private Won amount;
     private String balance; // TODO #15
     private String summary;
-    private String category; // TODO #16
+
+    @Enumerated(value = EnumType.STRING)
+    private RecordCategory category;
 
     public void setDate(LocalDateTime date) {
         this.date = date;
@@ -44,11 +46,11 @@ public class Record {
         this.summary = summary;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(RecordCategory category) {
         this.category = category;
     }
 
-    public Record(LocalDateTime date, boolean isRevenue, Won amount, String balance, String summary, String category) {
+    public Record(LocalDateTime date, boolean isRevenue, Won amount, String balance, String summary, RecordCategory category) {
         this.date = date;
         if(isRevenue){
             revenueOrExpense = RecordType.수입;
@@ -89,7 +91,7 @@ public class Record {
         return revenueOrExpense;
     }
 
-    public String getCategory() {
+    public RecordCategory getCategory() {
         return category;
     }
 }
