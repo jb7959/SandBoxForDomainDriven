@@ -1,7 +1,10 @@
 package kr.domaindriven.dailybook;
 
 import kr.domaindriven.dailybook.record.Record;
+import kr.domaindriven.dailybook.record.RecordCategory;
+import kr.domaindriven.dailybook.record.RecordType;
 import kr.domaindriven.dailybook.record.Won;
+import org.apache.log4j.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,12 +39,27 @@ public class DailyBookPageController {
     @RequestMapping(value="dailybook/add", method=RequestMethod.POST)
     public String recordAdded(@ModelAttribute Record record, BindingResult result, Model model) {
 
-        System.out.println(record);
+        System.out.println(record.getDate());
         System.out.println("BEFORE :" + record.getAmount());
         System.out.println("BEFORE :" + record.getRevenueOrExpense());
 
         if(record.getDate() == null){
             record.setDate(LocalDateTime.now());
+        }
+        if(record.getRevenueOrExpense() == null){
+            record.setRevenueOrExpense(RecordType.수입);
+        }
+        if(record.getSummary() == null){
+            record.setSummary(" ");
+        }
+        if(record.getCategory() == null){
+            record.setCategory(RecordCategory.위키유지비);
+        }
+        if(record.getBalance() == null){
+            record.setBalance(new Won(30000));
+        }
+        if(record.getAmount() == null){
+            record.setAmount(new Won(30000));
         }
 
         // TODO 날짜를 입력 받아 처리하는 방법 구현

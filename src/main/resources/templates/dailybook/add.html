@@ -8,7 +8,7 @@
 <h1>Form</h1>
 <!-- #12 -->
 <form action="#" th:action="@{/dailybook/add}" th:object="${record}" method="post">
-    <p>Date: <input type="text" th:field="*{date}"  /></p>
+    <p>Date: <input type="text" th:field="*{{date}}"  /></p>
     <p>RevenueOrExpense: <input type="text" th:field="*{revenueOrExpense}" /></p>
     <p>amount: <input type="text" th:field="*{amount}" /></p>
     <p>balance: <input type="text" th:field="*{balance}" /></p>

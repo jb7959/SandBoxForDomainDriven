@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 /**
@@ -16,10 +15,6 @@ import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 @RestController
 @SpringBootApplication
 public class Application {
-    @Bean
-    public Java8TimeDialect java8TimeDialect() {
-    return new Java8TimeDialect();
-    }
 
     public static void main(String... args){
         System.setProperty("spring.h2.console.enabled","true");
@@ -33,5 +28,8 @@ public class Application {
         return "Hello, World!";
     }
 
-
+    @Bean
+    public Java8TimeDialect java8TimeDialect() {
+        return new Java8TimeDialect();
+    }
 }

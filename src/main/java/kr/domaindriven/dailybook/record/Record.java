@@ -1,6 +1,7 @@
 package kr.domaindriven.dailybook.record;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,15 +12,16 @@ import java.time.LocalDateTime;
  * Changed by jerry on 2016.1. 26.. 엔티티로 수정
  */
 
+@EnableWebMvc
 @Entity
 public class Record {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime date;
 
     @Enumerated(value = EnumType.STRING)
@@ -37,6 +39,7 @@ public class Record {
     public void setId(long id) {
         this.id = id;
     }
+
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
