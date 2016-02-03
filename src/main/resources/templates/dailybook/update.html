@@ -1,20 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Update a Record</title>
+    <title>update</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <h1>Form</h1>
-<!-- #12 -->
-<form action="#" th:action="@{/dailybook/update}" th:object="${newRecord}" method="post">
-    <!--<p>Date: <input type="text" th:value = "${oldRecord.date}" id="date" name="date" /></p>
-    <p>RevenueOrExpense: <input type="text" th:value = "${oldRecord.revenueOrExpense}" id="revenueOrExpense" name="revenueOrExpense"/></p>
-    <p>amount: <input type="text" th:value = "${oldRecord.amount}" id="amount" name="amount" /></p>
-    <p>balance: <input type="text" th:value = "${oldRecord.balance}" id="balance" name="balance" /></p>
-    <p>summary: <input type="text" th:value = "${oldRecord.summary}" id="summary" name="summary"  /></p>
-    <p>category: <input type="text" th:value = "${oldRecord.category}" id="category" name="category" /></p> -->
-    <p>Date: <input type="text" th:field="*{date}"  /></p>
+<form action="#" th:action="@{/dailybook/update/} + ${oldRecord.id}" th:object="${oldRecord}" method="post">
+    <p><input type="text" th:field="*{id}" readonly="readonly" hidden="hidden"/></p>
+    <p>Date: <input type="text" th:field="*{date}" /></p>
     <p>RevenueOrExpense: <input type="text" th:field="*{revenueOrExpense}" /></p>
     <p>amount: <input type="text" th:field="*{amount}" /></p>
     <p>balance: <input type="text" th:field="*{balance}" /></p>

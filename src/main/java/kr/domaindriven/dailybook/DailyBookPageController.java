@@ -90,19 +90,21 @@ public class DailyBookPageController {
         return APP_DIR + "list";
     }
 
-    @RequestMapping(value = "/dailybook/update/{id}", method = RequestMethod.GET)
-    public String update(@PathVariable Long id, Model model){
+    @RequestMapping(value = "dailybook/update/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable Long id,Model model){
         Record oldRecord = recordRepository.findById(id);
-        model.addAttribute("newRecord",new Record());
         model.addAttribute("oldRecord",oldRecord);
+        System.out.println(oldRecord);
         return APP_DIR + "update";
     }
 
-    @RequestMapping(value = "/dailybook/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute Record newRecord, Model model){
-        model.addAttribute("record",newRecord);
-        //recordRepository.save(record);
-        System.out.println(newRecord.getDate());
-        return APP_DIR + "result";
+    @RequestMapping(value = "dailybook/update/{id}", method = RequestMethod.POST)
+    public String update(@PathVariable Long id,@ModelAttribute Record record,Model model){
+        //record.setKey(id);
+        //recordRepository.delete(id);
+        recordRepository.save(record);
+        System.out.println(record);
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$"+record.getCategory());
+        return APP_DIR +"result";
     }
 }
