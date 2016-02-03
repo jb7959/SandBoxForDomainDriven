@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * Created by tony on 2016. 1. 22..
- * hanged by jerry on 2016.1. 26..  DBMS 테이블에 추가
+ * Changed by jerry on 2016.1. 26..  DBMS 테이블에 추가
  */
 @Controller
 public class DailyBookPageController {
@@ -88,5 +88,21 @@ public class DailyBookPageController {
         recordList.add(recordRepository.findById(id));
         model.addAttribute("list", recordList);
         return APP_DIR + "list";
+    }
+
+    @RequestMapping(value = "/dailybook/update/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable Long id, Model model){
+        Record oldRecord = recordRepository.findById(id);
+        model.addAttribute("newRecord",new Record());
+        model.addAttribute("oldRecord",oldRecord);
+        return APP_DIR + "update";
+    }
+
+    @RequestMapping(value = "/dailybook/update", method = RequestMethod.POST)
+    public String update(@ModelAttribute Record newRecord, Model model){
+        model.addAttribute("record",newRecord);
+        //recordRepository.save(record);
+        System.out.println(newRecord.getDate());
+        return APP_DIR + "result";
     }
 }

@@ -2,8 +2,12 @@ package kr.domaindriven.dailybook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 
 /**
  * Created by tony on 2016. 1. 19..
@@ -12,16 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
 public class Application {
+    @Bean
+    public Java8TimeDialect java8TimeDialect() {
+    return new Java8TimeDialect();
+    }
 
     public static void main(String... args){
         System.setProperty("spring.h2.console.enabled","true");
         System.setProperty("spring.jpa.show-sql", "true");
         System.setProperty("spring.jpa.hibernate.ddl-auto", "validate");
-        SpringApplication.run(Application.class, args);
+        ApplicationContext ac= SpringApplication.run(Application.class, args);
     }
 
     @RequestMapping("/")
     public String index(){
         return "Hello, World!";
     }
+
+
 }

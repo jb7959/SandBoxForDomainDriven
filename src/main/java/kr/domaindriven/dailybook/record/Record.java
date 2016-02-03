@@ -1,5 +1,7 @@
 package kr.domaindriven.dailybook.record;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Record {
+
 
 
     @Id
@@ -31,6 +34,9 @@ public class Record {
     @Enumerated(value = EnumType.STRING)
     private RecordCategory category;
 
+    public void setId(long id) {
+        this.id = id;
+    }
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
