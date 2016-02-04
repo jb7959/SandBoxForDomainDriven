@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +51,13 @@ public class DailyBookPageController {
      */
     @RequestMapping(value="dailybook/add", method=RequestMethod.POST)
     public String recordAdded(@ModelAttribute Record record, BindingResult result, Model model) {
+
+        // TODO convert hard-cord check to @VALID
+        if(record.getDate() == null){
+            record.setDate(LocalDateTime.now());
+            return APP_DIR + "add";
+        }
+        System.out.println("#########" + record.getDate());
 
         recordRepository.save(record);
         model.addAttribute("record", record);
