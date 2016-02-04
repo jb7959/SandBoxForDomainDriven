@@ -10,7 +10,9 @@
 <form action="#" th:action="@{/dailybook/add}" th:object="${record}" method="post">
     <p>Date:
         <button type="submit" name="setDateAsNow" th:text="현재시각"></button>
-        <span th:text="${#temporals.format(record.date, 'yyyy.MM.dd hh:mm:ss')}" />
+        <span th:if="${record.date}" th:text="${#temporals.format(record.date, 'yyyy.MM.dd hh:mm:ss')}" />
+        <br/>
+        혹은<input type="text" th:field="*{date}" /> (둘 중 하나를 선택하게 UI 수정)
     </p>
     <p>RevenueOrExpense: <input type="text" th:field="*{revenueOrExpense}" /></p>
     <p>amount: <input type="text" th:field="*{amount}" /></p>

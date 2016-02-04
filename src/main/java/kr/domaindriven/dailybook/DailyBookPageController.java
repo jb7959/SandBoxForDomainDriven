@@ -47,6 +47,34 @@ public class DailyBookPageController {
         return APP_DIR + "add";
     }
 
+
+    /**
+     * <p>후원금 관리 목록에 한 줄을 추가하는 행위</p>
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = APP_DIR + "add", method=RequestMethod.POST)
+    public String recordAdded(@ModelAttribute Record record, BindingResult result, Model model) {
+
+        // TODO convert hard-cord check to @VALID
+        if(record.getDate() == null){
+            System.out.println("#########" + record.getDate());
+            return APP_DIR + "add";
+        }
+
+        System.out.println("#########" + record.getDate());
+
+        recordRepository.save(record);
+        model.addAttribute("record", record);
+
+        if(result.hasErrors())
+            return APP_DIR + "add";
+        else
+            return APP_DIR + "result";
+    }
+
+
     /**
      * <p>@{link Record}의 date 속성을 초까지 포함한 현재시각으로 설정</p>
      *
@@ -62,31 +90,6 @@ public class DailyBookPageController {
         return APP_DIR + "add";
     }
 
-
-    /**
-     * <p>후원금 관리 목록에 한 줄을 추가하는 행위</p>
-     *
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = APP_DIR + "add", method=RequestMethod.POST)
-    public String recordAdded(@ModelAttribute Record record, BindingResult result, Model model) {
-
-        // TODO convert hard-cord check to @VALID
-        if(record.getDate() == null){
-            record.setDate(LocalDateTime.now());
-            return APP_DIR + "add";
-        }
-        System.out.println("#########" + record.getDate());
-
-        recordRepository.save(record);
-        model.addAttribute("record", record);
-
-        if(result.hasErrors())
-            return APP_DIR + "add";
-        else
-            return APP_DIR + "result";
-    }
 
     /**
      * <p>후원금 관리 첫 화면 즉, 목록이 나오는 화면 출력</p>
