@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{view.list}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1 th:text="#{view.list}">후원금 관리</h1>
+<table>
+    <tr>
+        <th>no</th>
+        <th>날짜</th>
+        <th>수입</th>
+        <th>지출</th>
+        <th>잔액</th>
+        <th>적요</th>
+        <th>범주</th>
+        <th>명령</th>
+    </tr>
+    <tr th:each="record: ${list}">
+        <th>no</th>
+        <td th:text="${#temporals.format(record.date, 'yyyy.MM.dd')}"></td>
+        <th>수입</th>
+        <th>지출</th>
+        <th>잔액</th>
+        <th>적요</th>
+        <th>범주</th>
+        <th>명령</th>
+    </tr>
+    <tr><td><a href="/dailybook/add">추가</a></td></tr>
+</table>
+</body>
+</html>
