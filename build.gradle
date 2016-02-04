@@ -31,6 +31,7 @@ dependencies {
     compile('com.h2database:h2')
     compile('org.flywaydb:flyway-core')
     compile('org.thymeleaf.extras:thymeleaf-extras-java8time:2.1.0.RELEASE') //타임리프의 Java8Date 타입 지원을 위한 모듈. https://github.com/thymeleaf/thymeleaf-extras-java8time
+    compile('org.springframework.boot:spring-boot-devtools')
 
     testCompile('junit:junit:4.11')
 }
