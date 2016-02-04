@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add a Record</title>
+    <title th:text="#{view.add}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Record Add</h1>
+<h1 th:text="#{view.add}"></h1>
 <!-- #12 -->
 <form action="#" th:action="@{/dailybook/add}" th:object="${record}" method="post">
     <p>Date: <input type="text" th:field="*{{date}}"  /></p>

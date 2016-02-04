@@ -15,8 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by tony on 2016. 1. 22..
- * Changed by jerry on 2016.1. 26..  DBMS 테이블에 추가
+ * <p>
+ *     후원금 관리 화면 입출력 서버측 접점
+ * </p>
+ *
+ * @author Younghoe Ahn
+ * @author jerry
  */
 @Controller
 public class DailyBookPageController {
@@ -36,7 +40,7 @@ public class DailyBookPageController {
      * @param model
      * @return
      */
-    @RequestMapping(value="dailybook/add", method= RequestMethod.GET)
+    @RequestMapping(value = APP_DIR + "add", method = RequestMethod.GET)
     public String addRecord(Model model) {
         model.addAttribute("record", new Record());
         return APP_DIR + "add";
@@ -49,7 +53,7 @@ public class DailyBookPageController {
      * @param model
      * @return
      */
-    @RequestMapping(value="dailybook/add", method=RequestMethod.POST)
+    @RequestMapping(value = APP_DIR + "add", method=RequestMethod.POST)
     public String recordAdded(@ModelAttribute Record record, BindingResult result, Model model) {
 
         // TODO convert hard-cord check to @VALID
@@ -73,7 +77,7 @@ public class DailyBookPageController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(value = APP_DIR + "list", method = RequestMethod.GET)
     public String list(Model model){
         List<Record> recordList = new ArrayList<Record>();
         for (Record record:recordRepository.findAll()) {
