@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
  * Changed by jerry on 2016.1. 26.. 엔티티로 수정
  */
 
-@EnableWebMvc
 @Entity
 public class Record {
 
@@ -20,8 +19,6 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime date;
 
     @Enumerated(value = EnumType.STRING)

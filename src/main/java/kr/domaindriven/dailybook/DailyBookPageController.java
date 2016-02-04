@@ -118,11 +118,8 @@ public class DailyBookPageController {
 
     @RequestMapping(value = "dailybook/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable Long id,@ModelAttribute Record record,Model model){
-        //record.setKey(id);
-        //recordRepository.delete(id);
         recordRepository.save(record);
         System.out.println(record);
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$"+record.getCategory());
         return APP_DIR +"result";
     }
 }
