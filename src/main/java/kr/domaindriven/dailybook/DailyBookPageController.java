@@ -34,22 +34,38 @@ public class DailyBookPageController {
     private RecordRepository recordRepository;
 
     /**
-     * <p>
-     *     후원금 관리 목록에 한 줄에 해당하는 데이터를 입력하는 화면 출력
-     * </p>
+     * <p>후원금 관리 목록에 한 줄에 해당하는 데이터를 입력하는 화면 출력</p>
+     *
      * @param model
      * @return
      */
     @RequestMapping(value = APP_DIR + "add", method = RequestMethod.GET)
     public String addRecord(Model model) {
+        // command 객체
         model.addAttribute("record", new Record());
+
         return APP_DIR + "add";
     }
 
     /**
-     * <p>
-     *     후원금 관리 목록에 한 줄을 추가하는 행위
-     * </p>
+     * <p>@{link Record}의 date 속성을 초까지 포함한 현재시각으로 설정</p>
+     *
+     * @see <p href="http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#dynamic-fields">
+     *     7.6 Dynamic fields</p>
+     * @param record
+     * @param bindingResult
+     * @return
+     */
+    @RequestMapping(value = APP_DIR + "add", params = {"setDateAsNow"})
+    public String setDateAsNow(final Record record, final BindingResult bindingResult){
+        record.setDate(LocalDateTime.now());
+        return APP_DIR + "add";
+    }
+
+
+    /**
+     * <p>후원금 관리 목록에 한 줄을 추가하는 행위</p>
+     *
      * @param model
      * @return
      */
