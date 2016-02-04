@@ -17,6 +17,7 @@ public class Application {
         System.setProperty("spring.h2.console.enabled","true");
         System.setProperty("spring.jpa.show-sql", "true");
         System.setProperty("spring.jpa.hibernate.ddl-auto", "validate");
+        SpringApplication.run(Application.class, args);
     }
 
     @RequestMapping("/")

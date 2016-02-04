@@ -10,7 +10,7 @@
         <th>명령</th>
     </tr>
 <#list list as record>
-    <tr> <!-- TODO #9 #10 -->
+    <tr>
         <td><a href=/list/${record.id}>${record.id}</a></td>
         <td>${record.date}</td>
         <#if record.revenueOrExpense == "수입">
