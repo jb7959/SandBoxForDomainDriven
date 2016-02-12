@@ -108,25 +108,6 @@ public class DailyBookPageController {
 
     // TODO 향후 구현 완료 후에 javadoc 주석 보강
 
-    @RequestMapping(value = "datatables", method = RequestMethod.GET)
-    public String datatables(Model model){
-        List<Record> recordList = new ArrayList<Record>();
-        for (Record record:recordRepository.findAll()) {
-            recordList.add(record);
-        }
-        model.addAttribute("list", recordList);
-        return APP_DIR + "datatables";
-    }
-
-
-    @RequestMapping("list/{id}")
-    public String list(@PathVariable Long id, Model model){
-        List<Record> recordList = new ArrayList<Record>();
-        recordList.add(recordRepository.findById(id));
-        model.addAttribute("list", recordList);
-        return APP_DIR + "list";    //TODO From ftl To thymeleaf
-    }
-
     @RequestMapping(value = "dailybook/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable Long id,Model model){
         Record oldRecord = recordRepository.findById(id);
