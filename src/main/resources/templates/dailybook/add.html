@@ -12,11 +12,12 @@
         <button type="submit" name="setDateAsNow" th:text="현재시각"></button>
         <span th:if="${record.date}" th:text="${#temporals.format(record.date, 'yyyy.MM.dd hh:mm:ss')}" />
         <br/>
-        혹은<input type="text" th:field="*{date}" /> (둘 중 하나를 선택하게 UI 수정)
+        혹은<input type="text" th:field="*{date}" />
+            (둘 중 하나를 선택하게 UI 수정)
     </p>
-    <p>RevenueOrExpense: <input type="text" th:field="*{revenueOrExpense}" /></p>
+    <!--<p>RevenueOrExpense: <input type="text" th:field="*{revenueOrExpense}" /></p>-->
     <p>amount: <input type="text" th:field="*{amount}" /></p>
-    <p>balance: <input type="text" th:field="*{balance}" /></p>
+    <!--<p>balance: <input type="text" th:field="*{balance}" /></p>-->
     <p>summary: <input type="text" th:field="*{summary}" /></p>
     <p>category: <input type="text" th:field="*{category}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>

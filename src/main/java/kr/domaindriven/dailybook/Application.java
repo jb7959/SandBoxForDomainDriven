@@ -2,6 +2,7 @@ package kr.domaindriven.dailybook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class Application {
     public static void main(String... args){
         System.setProperty("spring.jpa.show-sql", "true");
         System.setProperty("spring.jpa.hibernate.ddl-auto", "validate");
-        SpringApplication.run(Application.class, args);
+        ApplicationContext context = SpringApplication.run(Application.class, args);
     }
 
     /**

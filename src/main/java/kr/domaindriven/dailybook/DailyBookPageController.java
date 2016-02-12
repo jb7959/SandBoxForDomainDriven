@@ -1,6 +1,9 @@
 package kr.domaindriven.dailybook;
 
 import kr.domaindriven.dailybook.record.Record;
+import kr.domaindriven.dailybook.record.RecordForm;
+import kr.domaindriven.dailybook.record.RecordType;
+import kr.domaindriven.dailybook.record.Won;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +45,10 @@ public class DailyBookPageController {
     @RequestMapping(value = APP_DIR + "add", method = RequestMethod.GET)
     public String addRecord(Model model) {
         // command 객체
-        model.addAttribute("record", new Record());
+        RecordForm formBackingObject = new RecordForm();
+        System.out.println("Form date: " + formBackingObject.getDate());
+        formBackingObject.setDate(LocalDateTime.now());
+        model.addAttribute("record", formBackingObject);
 
         return APP_DIR + "add";
     }
@@ -55,39 +61,40 @@ public class DailyBookPageController {
      * @return
      */
     @RequestMapping(value = APP_DIR + "add", method=RequestMethod.POST)
-    public String recordAdded(@ModelAttribute Record record, BindingResult result, Model model) {
+    public String recordAdded(@ModelAttribute RecordForm form, BindingResult result, Model model) {
+
+        Record record = new Record();
 
         // TODO convert hard-cord check to @VALID
-        if(record.getDate() == null){
-            System.out.println("#########" + record.getDate());
+        if(form.getDate() == null) {
+            System.out.println("Form.date: " + form.getDate());
+            model.addAttribute("record", form);
             return APP_DIR + "add";
+        }else {
+            record.setDate(form.getDate());
         }
 
-        System.out.println("#########" + record.getDate());
+        if(form.getAmount() == null){
+            System.out.println("Form.amout: " + form.getAmount());
+            model.addAttribute("record", form);
+            return APP_DIR + "add";
+        }else if(form.getAmount() < 0){
+            record.setRevenueOrExpense(RecordType.지출);
+            record.setAmount(new Won(form.getAmount()));
+        }else {
+            record.setRevenueOrExpense(RecordType.수입);
+            record.setAmount(new Won(form.getAmount()));
+        }
 
         recordRepository.save(record);
-        model.addAttribute("record", record);
+        model.addAttribute("record", form);
 
-        if(result.hasErrors())
+        return APP_DIR + "result";
+
+     /*   if(result.hasErrors())
             return APP_DIR + "add";
         else
-            return APP_DIR + "result";
-    }
-
-
-    /**
-     * <p>@{link Record}의 date 속성을 초까지 포함한 현재시각으로 설정</p>
-     *
-     * @see <p href="http://www.thymeleaf.org/doc/tutorials/2.1/thymeleafspring.html#dynamic-fields">
-     *     7.6 Dynamic fields</p>
-     * @param record
-     * @param bindingResult
-     * @return
-     */
-    @RequestMapping(value = APP_DIR + "add", params = {"setDateAsNow"})
-    public String setDateAsNow(final Record record, final BindingResult bindingResult){
-        record.setDate(LocalDateTime.now());
-        return APP_DIR + "add";
+            return APP_DIR + "result";*/
     }
 
 
