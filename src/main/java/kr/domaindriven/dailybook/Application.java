@@ -1,5 +1,6 @@
 package kr.domaindriven.dailybook;
 
+import kr.domaindriven.dailybook.record.RecordDirect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,12 @@ public class Application {
     public Java8TimeDialect java8TimeDialect() {
         return new Java8TimeDialect();
     }
+
+    @Bean
+    public RecordDirect recordDirect() {
+        return new RecordDirect();
+    }
+
 
     @RequestMapping("/")
     public String index(){
