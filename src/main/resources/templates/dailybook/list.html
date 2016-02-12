@@ -1,12 +1,31 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{view.list}"></title>
+    <title>Data Tables</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" />
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#example').dataTable( {
+                "order": [0, 'asc'],
+                "columnDefs": [
+                    { "orderable": false, "targets": 0 },
+                    { "orderable": false, "targets": 1 },
+                    { "orderable": false, "targets": 2 },
+                    { "orderable": false, "targets": 3 },
+                    { "orderable": false, "targets": 4 },
+                    { "orderable": false, "targets": 5 },
+                    { "orderable": false, "targets": 6 }
+                ]
+            } );
+        } );
+    </script>
 </head>
 <body>
-<h1 th:text="#{view.list}">후원금 관리</h1>
-<table>
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
     <tr>
         <th>no</th>
         <th>날짜</th>
@@ -15,36 +34,39 @@
         <th>잔액</th>
         <th>적요</th>
         <th>범주</th>
-        <th>명령</th>
     </tr>
-    <tr th:each="record: ${list}">
-        <td th:text="${record.getId()}"></td>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>no</th>
+        <th>날짜</th>
+        <th>수입</th>
+        <th>지출</th>
+        <th>잔액</th>
+        <th>적요</th>
+        <th>범주</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr th:each="record,rowStat : ${list}">
+        <!-- id는 사용하지 않음. 향후 링크를 걸때 필요할 것으로 추정 -->
+        <td th:text="${rowStat.count}">no</td>
         <td th:text="${#temporals.format(record.date, 'yyyy.MM.dd')}"></td>
-        <!--수입-->
-        <td>
-            <span th:if="${#strings.equals('수입',record.getRevenueOrExpense())}">
-            <a th:text="${record.getAmount().getSymbol()}"></a>
-            <a th:text="${#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA')}"></a>
-            </span>
-        </td>
-        <!--지출-->
-        <td>
-            <span th:if="${#strings.equals('지출',record.getRevenueOrExpense())}">
-            <a th:text="${record.getAmount().getSymbol()}"></a>
-            <a th:text="${#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA')}"></a>
-            </span>
-        </td>
-        <!--잔액-->
-        <td>
-            <a th:text="${record.getAmount().getSymbol()}"></a>
-            <a th:text="${#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA')}"></a>
-        </td>
-        <!--적요-->
-        <td th:text="${record.getSummary()}"></td>
-        <!--범주-->
-        <td th:text="${record.getCategory()}"></td>
+        <td th:text="${#strings.equals(record.revenueOrExpense, '수입')}
+            ? ${#strings.prepend(#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA'),
+                record.getAmount().getSymbol())} : ''">수입</td>
+        <td th:text="${#strings.equals(record.revenueOrExpense, '지출')}
+            ? ${#strings.prepend(#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA'),
+                record.getAmount().getSymbol())} : ''">지출</td>
+        <td th:text="${#strings.prepend(#numbers.formatInteger(record.getBalance().getAmount(),3,'COMMA'),
+            record.getBalance().getSymbol())}"></td>
+        <td th:text="${record.summary}"></td>
+        <td th:text="${record.category}"></td>
     </tr>
-    <tr><td><a href="/dailybook/add">추가</a></td></tr>
+    </tbody>
 </table>
+<p>
+    <a href="/dailybook/add">추가</a>
+</p>
 </body>
 </html>
