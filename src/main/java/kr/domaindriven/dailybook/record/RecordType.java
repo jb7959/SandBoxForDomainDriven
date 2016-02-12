@@ -1,7 +1,11 @@
 package kr.domaindriven.dailybook.record;
 
 /**
- * Created by tony on 2016. 1. 30..
+ * <p>
+ *     수입과 지출 여부를 표현
+ * </p>
+ *
+ * @author Younghoe Ahn
  */
 public enum RecordType {
 

@@ -20,13 +20,13 @@ import java.util.List;
  * </p>
  *
  * @author Younghoe Ahn
- * @author jerry
+ * @author Jerry Ahn
  */
 @Controller
 public class DailyBookPageController {
 
-    /**
-     * <p>templates 하위 디렉토리 이름을 Controller별로 한번에 지정하기 위해 사용</p>
+    /*
+     * templates 하위 디렉토리 이름을 Controller별로 한번에 지정하기 위해 사용
      */
     private final String APP_DIR = "dailybook/";
 
@@ -105,6 +105,8 @@ public class DailyBookPageController {
         model.addAttribute("list", recordList);
         return APP_DIR + "list";
     }
+
+    // TODO 향후 구현 완료 후에 javadoc 주석 보강
 
     @RequestMapping(value = "datatables", method = RequestMethod.GET)
     public String datatables(Model model){

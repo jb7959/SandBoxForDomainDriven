@@ -1,7 +1,7 @@
 package kr.domaindriven.dailybook;
 
 import kr.domaindriven.dailybook.record.Won;
-import kr.domaindriven.dailybook.record.WonAttributeConverter;
+import kr.domaindriven.dailybook.record.jpa.WonAttributeConverter;
 import org.junit.Test;
 
 import java.math.BigDecimal;

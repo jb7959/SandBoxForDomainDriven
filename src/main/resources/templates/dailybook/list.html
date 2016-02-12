@@ -23,22 +23,21 @@
         <!--수입-->
         <td>
             <span th:if="${#strings.equals('수입',record.getRevenueOrExpense())}">
-            <!--<a th:if="${#strings.equals('KRW',record.getAmount().getCurrencyCode())}" th:text="${'\'}"></a> 이렇게하면 통화문자마다 써줘야함 -->
-            <a th:text="${#recordsUtil.change(record.getBalance().getCurrencyCode())}"></a>
-            <a th:text="${#numbers.formatInteger(#strings.substring(record.getAmount(),3),3,'COMMA')}"></a>
+            <a th:text="${record.getAmount().getSymbol()}"></a>
+            <a th:text="${#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA')}"></a>
             </span>
         </td>
         <!--지출-->
         <td>
             <span th:if="${#strings.equals('지출',record.getRevenueOrExpense())}">
-            <a th:text="${#recordsUtil.change(record.getBalance().getCurrencyCode())}"></a>
-            <a th:text="${#numbers.formatInteger(#strings.substring(record.getAmount(),3),3,'COMMA')}"></a>
+            <a th:text="${record.getAmount().getSymbol()}"></a>
+            <a th:text="${#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA')}"></a>
             </span>
         </td>
         <!--잔액-->
         <td>
-            <a th:if="${#strings.equals('KRW',record.getBalance().getCurrencyCode())}" th:text="${'\'}"></a>
-            <a th:text="${#numbers.formatInteger(#strings.substring(record.getBalance(),3),3,'COMMA')}"></a>
+            <a th:text="${record.getAmount().getSymbol()}"></a>
+            <a th:text="${#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA')}"></a>
         </td>
         <!--적요-->
         <td th:text="${record.getSummary()}"></td>

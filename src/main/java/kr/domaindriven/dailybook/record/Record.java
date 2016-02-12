@@ -1,26 +1,27 @@
 package kr.domaindriven.dailybook.record;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
 /**
- * Created by tony on 2016. 1. 22..
- * Changed by jerry on 2016.1. 26.. 엔티티로 수정
+ * <p>
+ *      후원금 관리 기준이 되는 입출금 이력과 그에 따른 잔액을 표현하는 객체이며 JPA {@link Entity} 역할을 겸함
+ * </p>
+ *
+ * @author Younghoe Ahn
+ * @author Jerry Ahn
  */
 
 @Entity
 public class Record {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private LocalDateTime date;
 
+    // TODO -/+ 로 간편하게 만들지 고민해보기
     @Enumerated(value = EnumType.STRING)
     private RecordType revenueOrExpense;
 
