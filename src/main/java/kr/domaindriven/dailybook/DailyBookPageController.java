@@ -1,9 +1,6 @@
 package kr.domaindriven.dailybook;
 
-import kr.domaindriven.dailybook.record.Record;
-import kr.domaindriven.dailybook.record.RecordForm;
-import kr.domaindriven.dailybook.record.RecordType;
-import kr.domaindriven.dailybook.record.Won;
+import kr.domaindriven.dailybook.record.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,24 +63,57 @@ public class DailyBookPageController {
         Record record = new Record();
 
         // TODO convert hard-cord check to @VALID
+
+        //날짜를 위한 추가부분
         if(form.getDate() == null) {
             System.out.println("Form.date: " + form.getDate());
             model.addAttribute("record", form);
             return APP_DIR + "add";
         }else {
+            System.out.println("Form.date: " + form.getDate());
             record.setDate(form.getDate());
         }
-
+        //금액을 위한 추가부분, 음수면 지출 그외에는 수입
         if(form.getAmount() == null){
-            System.out.println("Form.amout: " + form.getAmount());
+            System.out.println("Form.amount: " + form.getAmount());
             model.addAttribute("record", form);
             return APP_DIR + "add";
         }else if(form.getAmount() < 0){
+            System.out.println("Form.amount: " + form.getAmount());
             record.setRevenueOrExpense(RecordType.지출);
             record.setAmount(new Won(form.getAmount()));
         }else {
+            System.out.println("Form.amount: " + form.getAmount());
             record.setRevenueOrExpense(RecordType.수입);
             record.setAmount(new Won(form.getAmount()));
+        }
+        //범주(카테고리)를 위한 부분
+       if(form.getCategory() == null){
+            System.out.println("Form.category: " + form.getCategory());
+            model.addAttribute("record", form);
+            return APP_DIR + "add";
+        }else if(form.getCategory().equals(RecordCategory.위키유지비)){
+            System.out.println("Form.category: " + form.getCategory());
+            record.setCategory(RecordCategory.위키유지비);
+        }else {
+            System.out.println("Form.category: " + form.getCategory());
+            record.setCategory(RecordCategory.후원금);
+        }
+
+        //잔액(balance)를 위한 부분
+        recordRepository.findById(1l);
+
+        Won balance = new Won(0);
+
+
+        //적요(Summary)를 위한 부분
+        if(form.getSummary() == null){
+            System.out.println("Form.category: " + form.getCategory());
+            model.addAttribute("record", form);
+            return APP_DIR + "add";
+        }else{
+            System.out.println("Form.category: " + form.getCategory());
+            record.setSummary(form.getSummary());
         }
 
         recordRepository.save(record);
