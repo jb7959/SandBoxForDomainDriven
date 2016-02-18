@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,29 +96,31 @@ public class DailyBookPageController {
         }else if(form.getCategory().equals(RecordCategory.위키유지비)){
             System.out.println("Form.category: " + form.getCategory());
             record.setCategory(RecordCategory.위키유지비);
-        }else {
+        }else{
             System.out.println("Form.category: " + form.getCategory());
             record.setCategory(RecordCategory.후원금);
-        }
+       }
 
         //잔액(balance)를 위한 부분
-        recordRepository.findById(1l);
+        BigDecimal lastBalance = recordRepository.findById(recordRepository.findByLastRecordId()).getBalance().getAmount();
+        BigDecimal amount = new BigDecimal(form.getAmount());
+        Won balance = new Won(lastBalance.add(amount));
+        record.setBalance(balance);
 
-        Won balance = new Won(0);
 
 
         //적요(Summary)를 위한 부분
         if(form.getSummary() == null){
-            System.out.println("Form.category: " + form.getCategory());
+            System.out.println("Form.Summary: " + form.getCategory());
             model.addAttribute("record", form);
             return APP_DIR + "add";
         }else{
-            System.out.println("Form.category: " + form.getCategory());
+            System.out.println("Form.Summary: " + form.getCategory());
             record.setSummary(form.getSummary());
         }
 
         recordRepository.save(record);
-        model.addAttribute("record", form);
+        model.addAttribute("record", record);
 
         return APP_DIR + "result";
 
@@ -135,10 +138,11 @@ public class DailyBookPageController {
      */
     @RequestMapping(value = APP_DIR + "list", method = RequestMethod.GET)
     public String list(Model model){
-        List<Record> recordList = new ArrayList<Record>();
-        for (Record record:recordRepository.findAll()) {
+        List<Record> recordList = recordRepository.findAll();
+                // new ArrayList<Record>();
+       /* for (Record record:recordRepository.findAll()) {
             recordList.add(record);
-        }
+        }*/
         model.addAttribute("list", recordList);
         return APP_DIR + "list";
     }

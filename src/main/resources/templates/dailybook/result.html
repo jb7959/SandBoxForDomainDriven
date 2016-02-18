@@ -6,10 +6,10 @@
 </head>
 <body>
 <h1>Result</h1>
-<p th:text="'data: ' + ${record.date}" />
+<p th:text="'data: ' + ${#temporals.format(record.date, 'yyyy.MM.dd')}" />
 <p th:text="'revenueOrExpense: ' + ${record.revenueOrExpense}" />
-<p th:text="'amount: ' + ${record.amount}" />
-<p th:text="'balance: ' + ${record.balance}" />
+<p th:text="'amount: ' + ${#strings.prepend(#numbers.formatInteger(record.getAmount().getAmount(),3,'COMMA'),record.getAmount().getSymbol())}" />
+<p th:text="'balance: ' + ${#strings.prepend(#numbers.formatInteger(record.getBalance().getAmount(),3,'COMMA'),record.getBalance().getSymbol())}" />
 <p th:text="'summary: ' + ${record.summary}" />
 <p th:text="'category: ' + ${record.category}" />
 <a href="/dailybook/add">Submit another message</a>
