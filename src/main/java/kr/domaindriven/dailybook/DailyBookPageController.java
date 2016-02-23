@@ -43,11 +43,9 @@ public class DailyBookPageController {
     @RequestMapping(value = APP_DIR + "add", method = RequestMethod.GET)
     public String addRecord(Model model) {
         // command 객체
-        RecordForm formBackingObject = new RecordForm();
-        System.out.println("Form date: " + formBackingObject.getDate());
-        formBackingObject.setDate(LocalDateTime.now());
-        model.addAttribute("record", formBackingObject);
-
+        Record record = new Record();
+        record.setDate(LocalDateTime.now());
+        model.addAttribute("record", record);
         return APP_DIR + "add";
     }
 
@@ -59,36 +57,34 @@ public class DailyBookPageController {
      * @return
      */
     @RequestMapping(value = APP_DIR + "add", method=RequestMethod.POST)
-    public String recordAdded(@ModelAttribute RecordForm form, BindingResult result, Model model) {
+    public String recordAdded(@ModelAttribute Record record, Model model) {
 
-        Record record = new Record();
 
         // TODO convert hard-cord check to @VALID
 
         //날짜를 위한 추가부분
-        if(form.getDate() == null) {
-            System.out.println("Form.date: " + form.getDate());
-            model.addAttribute("record", form);
+        if(record.getDate() == null) {
+            System.out.println("Form.date: " + record.getDate());
+            model.addAttribute("record", record);
             return APP_DIR + "add";
         }else {
-            System.out.println("Form.date: " + form.getDate());
-            record.setDate(form.getDate());
+            System.out.println("Form.date: " + record.getDate());
+            record.setDate(record.getDate());
         }
+
         //금액을 위한 추가부분, 음수면 지출 그외에는 수입
-        if(form.getAmount() == null){
-            System.out.println("Form.amount: " + form.getAmount());
-            model.addAttribute("record", form);
+        if(record.getAmount() == null){
+            System.out.println("Form.amount: " + record.getAmount());
+            model.addAttribute("record", record);
             return APP_DIR + "add";
-        }else if(form.getAmount() < 0){
-            System.out.println("Form.amount: " + form.getAmount());
+        }else if(record.getAmount().getAmount().compareTo(new BigDecimal(0)) == -1){
+            System.out.println("Form.amount: " + record.getAmount());
             record.setRevenueOrExpense(RecordType.지출);
-            record.setAmount(new Won(form.getAmount()));
         }else {
-            System.out.println("Form.amount: " + form.getAmount());
+            System.out.println("Form.amount: " + record.getAmount());
             record.setRevenueOrExpense(RecordType.수입);
-            record.setAmount(new Won(form.getAmount()));
         }
-        //범주(카테고리)를 위한 부분
+/*        //범주(카테고리)를 위한 부분
        if(form.getCategory() == null){
             System.out.println("Form.category: " + form.getCategory());
             model.addAttribute("record", form);
@@ -117,12 +113,13 @@ public class DailyBookPageController {
         }else{
             System.out.println("Form.Summary: " + form.getCategory());
             record.setSummary(form.getSummary());
-        }
+        }*/
 
-        recordRepository.save(record);
+      //  recordRepository.save(record);
         model.addAttribute("record", record);
 
         return APP_DIR + "result";
+
 
      /*   if(result.hasErrors())
             return APP_DIR + "add";

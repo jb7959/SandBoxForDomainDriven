@@ -19,10 +19,10 @@ public class Won {
 
     private BigDecimal amount;
 
+    public Won(String amount){this(Integer.parseInt(amount));}
     public Won(int amount) {
         this.amount = new BigDecimal(amount);
     }
-
     public Won(BigDecimal amount) {
         this.amount = amount;
     }
