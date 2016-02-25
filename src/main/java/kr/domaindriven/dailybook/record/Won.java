@@ -3,6 +3,7 @@ package kr.domaindriven.dailybook.record;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -19,7 +20,12 @@ public class Won {
 
     private BigDecimal amount;
 
-    public Won(String amount){this(Integer.parseInt(amount));}
+    //문자열 숫자열을 구분함.
+    public Won(String amount){
+        String cha = amount.replaceAll("[^-]","");
+        String num = amount.replaceAll( "[^0-9]", "");
+        this.amount = new BigDecimal(cha+num);
+    }
     public Won(int amount) {
         this.amount = new BigDecimal(amount);
     }

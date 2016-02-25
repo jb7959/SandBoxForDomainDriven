@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
@@ -30,6 +31,7 @@ public class Application {
         System.setProperty("spring.jpa.show-sql", "true");
         System.setProperty("spring.jpa.hibernate.ddl-auto", "validate");
         ApplicationContext context = SpringApplication.run(Application.class, args);
+        System.out.println(context.getBean(ConversionService.class));
     }
 
     /**

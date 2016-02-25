@@ -4,7 +4,6 @@ import kr.domaindriven.dailybook.record.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +43,8 @@ public class DailyBookPageController {
         // command 객체
         Record record = new Record();
         record.setDate(LocalDateTime.now());
+        //record.setAmount(new Won(0));
+        record.setCategory(RecordCategory.후원금);
         model.addAttribute("record", record);
         return APP_DIR + "add";
     }
@@ -77,45 +77,44 @@ public class DailyBookPageController {
             System.out.println("Form.amount: " + record.getAmount());
             model.addAttribute("record", record);
             return APP_DIR + "add";
-        }else if(record.getAmount().getAmount().compareTo(new BigDecimal(0)) == -1){
+        }else if(record.getAmount().toBigDecimal().compareTo(new BigDecimal(0)) == -1){
             System.out.println("Form.amount: " + record.getAmount());
             record.setRevenueOrExpense(RecordType.지출);
         }else {
             System.out.println("Form.amount: " + record.getAmount());
             record.setRevenueOrExpense(RecordType.수입);
         }
-/*        //범주(카테고리)를 위한 부분
-       if(form.getCategory() == null){
-            System.out.println("Form.category: " + form.getCategory());
-            model.addAttribute("record", form);
+        //범주(카테고리)를 위한 부분
+       if(record.getCategory() == null){
+            System.out.println("Form.category: " + record.getCategory());
+            model.addAttribute("record", record);
             return APP_DIR + "add";
-        }else if(form.getCategory().equals(RecordCategory.위키유지비)){
-            System.out.println("Form.category: " + form.getCategory());
+        }else if(record.getCategory().equals(RecordCategory.위키유지비)){
+            System.out.println("Form.category: " + record.getCategory());
             record.setCategory(RecordCategory.위키유지비);
         }else{
-            System.out.println("Form.category: " + form.getCategory());
+            System.out.println("Form.category: " + record.getCategory());
             record.setCategory(RecordCategory.후원금);
        }
 
-        //잔액(balance)를 위한 부분
+        //잔액(balance)를 위한 부분, 마지막 잔액을 확인하여, Amount를 더한다.
         BigDecimal lastBalance = recordRepository.findById(recordRepository.findByLastRecordId()).getBalance().getAmount();
-        BigDecimal amount = new BigDecimal(form.getAmount());
+        BigDecimal amount = record.getAmount().toBigDecimal();
         Won balance = new Won(lastBalance.add(amount));
         record.setBalance(balance);
 
 
-
         //적요(Summary)를 위한 부분
-        if(form.getSummary() == null){
-            System.out.println("Form.Summary: " + form.getCategory());
-            model.addAttribute("record", form);
+        if(record.getSummary() == null){
+            System.out.println("Form.Summary: " + record.getCategory());
+            model.addAttribute("record", record);
             return APP_DIR + "add";
         }else{
-            System.out.println("Form.Summary: " + form.getCategory());
-            record.setSummary(form.getSummary());
-        }*/
+            System.out.println("Form.Summary: " + record.getCategory());
+            record.setSummary(record.getSummary());
+        }
 
-      //  recordRepository.save(record);
+        recordRepository.save(record);
         model.addAttribute("record", record);
 
         return APP_DIR + "result";
@@ -136,10 +135,6 @@ public class DailyBookPageController {
     @RequestMapping(value = APP_DIR + "list", method = RequestMethod.GET)
     public String list(Model model){
         List<Record> recordList = recordRepository.findAll();
-                // new ArrayList<Record>();
-       /* for (Record record:recordRepository.findAll()) {
-            recordList.add(record);
-        }*/
         model.addAttribute("list", recordList);
         return APP_DIR + "list";
     }
